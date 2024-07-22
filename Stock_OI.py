@@ -22,9 +22,9 @@ import copy
 data = None
 header = {"User-Agent": "Mozilla/5.0 (X11; CrOS x86_64 12871.102.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.141 Safari/537.36"}
 currentDate = datetime.datetime.now().strftime("%d-%m-%Y")
-save_dir = os.path.join(r"/Users/rsaklecha/Repo/GIT-HUB/market/NIFTY-BANKNIFTY-CALL-PUT-Live-Market-Analysis/data/", "OptionChain_" + currentDate + '.xlsx')
-save_dir_bhav = os.path.join(r"/Users/rsaklecha/Repo/GIT-HUB/market/NIFTY-BANKNIFTY-CALL-PUT-Live-Market-Analysis/data/", "BhavCopy_" + currentDate + '.xlsx')
-filePath = r"/Users/rsaklecha/Repo/GIT-HUB/market/NIFTY-BANKNIFTY-CALL-PUT-Live-Market-Analysis"
+save_dir = os.path.join(r"./data/", "OptionChain_" + currentDate + '.xlsx')
+save_dir_bhav = os.path.join(r"./data/", "BhavCopy_" + currentDate + '.xlsx')
+filePath = r"./"
 stockList = []
 sectorList = []
 df_Stock = {}
@@ -100,7 +100,7 @@ def getDataFromCSV():
     global stockList
     global sectorList
     global df
-    df = pd.read_csv(r"/Users/rsaklecha/market/Repo/GIT-HUB/NIFTY-BANKNIFTY-CALL-PUT-Live-Market-Analysis/data/Stock_Sector_FO.csv", header = 0)
+    df = pd.read_csv(r"./data/Stock_Sector_FO.csv", header = 0)
     stockList = df["Stock"].tolist()
     sectorList = list(np.unique(df['Sector']))
     

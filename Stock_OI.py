@@ -22,9 +22,9 @@ import copy
 data = None
 header = {"User-Agent": "Mozilla/5.0 (X11; CrOS x86_64 12871.102.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.141 Safari/537.36"}
 currentDate = datetime.datetime.now().strftime("%d-%m-%Y")
-save_dir = os.path.join(r"/Users/jaydevraval/Documents/Stocks/stock_eod_oi_data/", "OptionChain_" + currentDate + '.xlsx')
-save_dir_bhav = os.path.join(r"/Users/jaydevraval/Documents/Stocks/stock_eod_oi_data/", "BhavCopy_" + currentDate + '.xlsx')
-filePath = r"/Users/jaydevraval/Documents/Stocks/stock_eod_oi_data"
+save_dir = os.path.join(r"/Users/rsaklecha/Repo/GIT-HUB/NIFTY-BANKNIFTY-CALL-PUT-Live-Market-Analysis/data/", "OptionChain_" + currentDate + '.xlsx')
+save_dir_bhav = os.path.join(r"/Users/rsaklecha/Repo/GIT-HUB/NIFTY-BANKNIFTY-CALL-PUT-Live-Market-Analysis/data/", "BhavCopy_" + currentDate + '.xlsx')
+filePath = r"/Users/rsaklecha/Repo/GIT-HUB/NIFTY-BANKNIFTY-CALL-PUT-Live-Market-Analysis"
 stockList = []
 sectorList = []
 df_Stock = {}
@@ -90,7 +90,7 @@ def nsetoStockDataframe(name):
         if len(i) == 4:
             if i['expiryDate'] == currentExpiry:
                 createDict = {"Strike Price" : i['strikePrice'] , "CE_IV": i['CE']['impliedVolatility'], "CE_OI": i['CE']['openInterest'] , "CE_CHNGOI" : i['CE']['changeinOpenInterest'], "CE_PCHNGOI" : i['CE']['pchangeinOpenInterest'] ,"PE_IV" : i['PE']['impliedVolatility'], "PE_OI" : i['PE']['openInterest'], "PE_CHNGOI" : i['PE']['changeinOpenInterest'], "PE_PCHNGOI" : i['CE']['pchangeinOpenInterest']}
-                df_Stock[name] = df_Stock[name].append(createDict, ignore_index= True)
+                df_Stock[name] = df_Stock[name]._append(createDict, ignore_index= True)
 
     # df_Stock[name].to_csv(os.path.join(save_dir, name) + ".csv", header = True)
     print("OI Dataframe Created for " + name)
@@ -100,7 +100,7 @@ def getDataFromCSV():
     global stockList
     global sectorList
     global df
-    df = pd.read_csv(r"/Users/jaydevraval/Documents/Stocks/Stock_Sector_FO.csv", header = 0)
+    df = pd.read_csv(r"/Users/rsaklecha/Repo/GIT-HUB/NIFTY-BANKNIFTY-CALL-PUT-Live-Market-Analysis/data/Stock_Sector_FO.csv", header = 0)
     stockList = df["Stock"].tolist()
     sectorList = list(np.unique(df['Sector']))
     
@@ -129,12 +129,12 @@ def getBhavCopy():
     #Download file from site
     try:
         CSV_URL = "https://www1.nseindia.com/products/content/sec_bhavdata_full.csv"
-        
+
         with requests.Session() as s:
             download = s.get(CSV_URL)
-        
+
             decoded_content = download.content.decode('utf-8')
-        
+
             cr = csv.reader(decoded_content.splitlines(), delimiter=',')
             my_list = list(cr)
             writer = csv.writer(open("sec_bhavdata_full.csv", 'w'))
